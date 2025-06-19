@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poker Client</title>
+     <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+    <h1>Generate Poker Hand </h1>
+    <button id="generate-hand-btn">Generate</button>
+    <pre id="hand-result"></pre>
+
+
+    <script>
+        document.getElementById('generate-hand-btn').addEventListener('click', async () => {
+            const res = await fetch('/api/poker/generate-hand', { method: 'POST' });
+            const data = await res.json();
+            document.getElementById('hand-result').innerText = JSON.stringify(data, null, 2);
+        });
+    </script>
+</body>
+</html>

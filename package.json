@@ -1,0 +1,31 @@
+{
+  "name": "poker-hands-case",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+"scripts": {
+  "start": "nodemon app.js"
+},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.14.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JanySalinas/poker-hand-case.git"
+  },
+  "bugs": {
+    "url": "https://github.com/JanySalinas/poker-hand-case/issues"
+  },
+  "homepage": "https://github.com/JanySalinas/poker-hand-case#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
