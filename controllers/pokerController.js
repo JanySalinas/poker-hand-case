@@ -4,9 +4,10 @@ const HandModel = require('../models/handModel');
 
 exports.generateHand = async (req, res) => {
     try {
+        const { playerId } = req.body; // her mottar jeg playerID fra klienten 
         const { hand, analysis } = pokerService.generateHand();
-        await HandModel.saveHand(hand, analysis);
-        res.json({ hand, analysis });
+        await HandModel.saveHand(hand, analysis, playerId|| 'unknown') ;
+        res.json({ hand, analysis, playerId: playerId || 'unknown' });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Failed to generate hand' });

@@ -1,8 +1,8 @@
 const db = require('../db/db');
 
-exports.saveHand = async(hand, analysis) =>{
+exports.saveHand = async(hand, analysis, playerId) =>{
     const handString = hand.join(',');
-    await db.query('INSERT INTO hands (hands, analysis) VALUES (?, ?', [handString, analysis]);
+    await db.query('INSERT INTO hands (hands, analysis, playerId) VALUES (?, ?, ?)', [handString, analysis, playerId]);
 };
 
 exports.getAllHands = async () => {

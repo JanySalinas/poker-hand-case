@@ -8,13 +8,22 @@
 </head>
 <body>
     <h1>Generate Poker Hand </h1>
+    <label for="player-id">Player ID:</label>
+    <input type="text" id="player-id" placeholder="Enter Player ID" />
     <button id="generate-hand-btn">Generate</button>
     <pre id="hand-result"></pre>
 
 
     <script>
         document.getElementById('generate-hand-btn').addEventListener('click', async () => {
-            const res = await fetch('/api/poker/generate-hand', { method: 'POST' });
+            const playerId = document.getElementById('player-id').value || 'unknown';
+            const res = await fetch('/api/poker/generate-hand', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ playerId })
+            });
             const data = await res.json();
             document.getElementById('hand-result').innerText = JSON.stringify(data, null, 2);
         });
