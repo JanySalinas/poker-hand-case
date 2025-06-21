@@ -1,6 +1,6 @@
-const db = require('./db/db');
+const { Hand } = require('./db/db');
 
-   async function seed() {
+async function seed() {
     try {
         const samples = [
             { hand: ['2r', '3k', '4s', '6h', '7r'], analysis: 'Høyeste kort', playerId: 'player1' },
@@ -12,17 +12,17 @@ const db = require('./db/db');
             { hand: ['8r', '8k', '8s', '8h', '9r'], analysis: 'Fire like', playerId: 'player7' },
             { hand: ['2r', '2k', '2s', '3h', '3r'], analysis: 'Hus', playerId: 'player8' },
         ];
-    
+
         for (const sample of samples) {
             const handString = sample.hand.join(',');
-            await db.query('INSERT INTO hands (hands, analysis, playerId) VALUES (?, ?, ?)', [
-                handString,
-                sample.analysis,
-                sample.playerId
-            ]);
+            await Hand.create({
+                hands: handString,
+                analysis: sample.analysis,
+                playerId: sample.playerId
+            });
             console.log(`Inserted sample for ${sample.playerId}`);
         }
-    
+
         console.log('Seed complete.');
         process.exit(0);
     } catch (error) {

@@ -1,11 +1,16 @@
-const db = require('../db/db');
+const { Hand } = require('../db/db');
 
-exports.saveHand = async(hand, analysis, playerId) =>{
+exports.saveHand = async (hand, analysis, playerId) => {
     const handString = hand.join(',');
-    await db.query('INSERT INTO hands (hands, analysis, playerId) VALUES (?, ?, ?)', [handString, analysis, playerId]);
+    // Use the Sequelize create method instead of db.query
+    await Hand.create({
+        hands: handString,
+        analysis,
+        playerId
+    });
 };
 
 exports.getAllHands = async () => {
-    const [rows] = await db.query('SELECT * FROM hands ORDER BY ID DESC');
-    return rows;
+    // Use the Sequelize findAll method
+    return await Hand.findAll({ order: [['id', 'DESC']] });
 };
