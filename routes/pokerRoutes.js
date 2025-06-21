@@ -5,7 +5,7 @@ const pokerController = require('../controllers/pokerController');
 // Genererer en ny pokerhånd
 router.post('/generate-hand', pokerController.generateHand);
 
-// Henter tidligere genererte hender (lagret i DB)
+// Henter tidligere genererte hender lagret i databasen
 router.get('/previous-hands', pokerController.getPreviousHands);
 
 // Sammenligner to pokerhender og returnerer vinneren
