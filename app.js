@@ -1,5 +1,6 @@
 // Laster inn miljøvariabler fra .env filen for å sikre at configs som PORT holdes utenfor koden.
 require('dotenv').config();
+console.log('DB_HOST:', process.env.DB_HOST);
 
 // Importerer nødvendige mpoduler: express for webserver, cors for tverr-opprinnelses tilgang, og ruter for API-en.
 const express = require('express');

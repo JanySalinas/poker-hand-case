@@ -123,12 +123,13 @@ function evaluateHand(hand) {
 // - Sikrer at koden kun opererer med logikk relatert til hånden, og holder kontrolleren ren.
 exports.compareHands = (hands) => {
     if (!Array.isArray(hands) || hands.length < 2) {
-        throw new Error("Minst to hender må oppgis for å sammenligne.");
+        throw new Error("Minst to hender må oppgis for å sammenligne."); // Denne delen sjekker om man får inn et gyldig input som vil si da en array med minst 2 hender. Dersom det ikke er gitt vil det kaste en feil
     }
     let bestScore = -1;
     let winningHand = null;
     hands.forEach(hand => {
         const score = evaluateHand(hand);
+        console.log('Hand:', hand, 'Score:', score);
         if (score > bestScore) {
             bestScore = score;
             winningHand = hand;

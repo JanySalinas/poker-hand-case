@@ -117,12 +117,14 @@ Du kan bruke Postman for å teste API-endepunktene. Her er noen eksempler:
   Eksempel på JSON-payload (kan enten spesifisere playerId for hver hånd eller sammenligne arbitære hender):
   
   ```json eksemple for testing.
-  {
+    {
     "hands": [
-      ["2k", "3k", "4s", "6h", "7r"],
-      ["2r", "2k", "2s", "2h", "7r"]
-    ]
-  }
+        ["2r", "3k", "4s", "6h", "7r"],
+        ["2r", "2k", "5s", "7h", "8r"],
+        ["3r", "3k", "3s", "7h", "8r"]
+        ]
+    }
+    I dette eksempelet vil den 3 hånden få flest score, og vinne.
 
 ## API Endepunkter  
 Prosjektets API-endepunkter inkluderer:
@@ -146,3 +148,8 @@ Prosjektets API-endepunkter inkluderer:
 
 ## Oppsummering  
 Denne README gir en oversikt over prosjektets formål, installasjonsinstruksjoner, oppsett for både lokalt utviklingsmiljø og containerisert kjøring med Docker, samt en gjennomgang av API-endepunktene og filstrukturen. Dette gjør det enklere for både utviklere og eventuelle bidragsytere å forstå og sette opp prosjektet.
+
+## Oppsummering av Docker:
+Jeg merket at selv om appen og databasen startet som forventet i Docker, ble ikke dataene lagret som de skulle. Appen koblet til databasen og opprettet tabeller, men dataene forsvant. Jeg tror det skyldtes at jeg manglet en vedvarende lagring volume eller at databasen ikke ble riktig initialisert. Det var en nyttig erfaring, og jeg har lært hvor viktig det er å teste databaseintegrasjon grundig spesielt i Docker-miljøer.
+Jeg prøvde å sette db som host, men det må være en annen plass jeg ikke har klart å få med meg for å kunne initialisere dette, jeg tar dette med meg videre til andre eventuelle docker prosjekter og er mer nøye med å få satt det opp riktig. 
+
