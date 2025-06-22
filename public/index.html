@@ -4,19 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Poker Client</title>
-     <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/styles.css" />
+    <!-- Jeg har valgt å bruke en statisk HTML-side med tilhørende CSS for å vise pokerhendene.
+     Løsningen er enkel og brukervennlig, og fungerer som et front-end grensesnitt for casen. -->
 </head>
 <body>
-    <h1>Generate Poker Hand </h1>
+    <h1>Generate Poker Hand</h1>
+    <!-- Input for brukerens playerId, slik at jeg kan knytte håden til en spiller.-->
     <label for="player-id">Player ID:</label>
     <input type="text" id="player-id" placeholder="Enter Player ID" />
+    <!-- Her er det en knapp for å hente en ny hånd fra APi-et-->
     <button id="generate-hand-btn">Generate</button>
-    <pre id="hand-result"></pre>
 
+    <!-- Container for kortene.-->
+    <div id="hand-container"></div>
+    <div id="analysis" class="hand-value"></div>
 
     <script>
+        // Legger til en eventlistener på knappen så jeg kan hente data fra back-end-API-et.
         document.getElementById('generate-hand-btn').addEventListener('click', async () => {
+            // Henter player-Id, bruker unknow hvis ingen er oppgitt.
             const playerId = document.getElementById('player-id').value || 'unknown';
+            // Sender POST-forespørsel til API-endepunktet for å generere en ny pokerhånd.
             const res = await fetch('/api/poker/generate-hand', {
                 method: 'POST',
                 headers: {
@@ -25,7 +34,35 @@
                 body: JSON.stringify({ playerId })
             });
             const data = await res.json();
-            document.getElementById('hand-result').innerText = JSON.stringify(data, null, 2);
+
+            // Tømmer kontaineren for å fjerne forrige hånd resultater
+            const handContainer = document.getElementById('hand-container');
+            handContainer.innerHTML = '';
+
+            // Forventer data.hand er en array med kort, f.eks. "4r", "tk"
+            data.hand.forEach(card => {
+                // Oppretter et div element for hvert kort 
+                const cardElem = document.createElement('div');
+                cardElem.className = 'card';
+                cardElem.innerText = card;
+                // Her legger det til riktig fargeklasse basert på kortets suit som feks (ruter/hjerter => rødt, kløver/spar => svart.)
+                const suit = card.slice(-1);
+                if (suit === 'r' || suit === 'h') {
+                    cardElem.classList.add('red-suit');
+                } else {
+                    cardElem.classList.add('black-suit');
+                }
+                handContainer.appendChild(cardElem);
+            });
+
+            // Viser den beregnende analysen av hånden
+            document.getElementById('analysis').innerText = data.analysis;
+            // Forklaring:
+            // 1. Vi henter playerId for å kunne knytte hånd til en spiller.
+            // 2. En POST-forespørsel sendes til backend for å generere en ny hånd-
+            // 3. Responsen forventes å inneholde et array med kort og en analyse.
+            // 4. Vi tømmer containeren og oppdaterer den med mye kort, der hvert kort får sin farge basert på tegn
+            // 5. Analysen av hånden vises under kortene 
         });
     </script>
 </body>

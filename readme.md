@@ -1,7 +1,7 @@
 # Poker Hands Case
 
 ## Introduksjon  
-Dette prosjektet er en applikasjon for håndtering av pokerhender. Den inneholder:
+Denne casen er en applikasjon for håndtering av pokerhender. Den inneholder:
 - Generering, stokking og analyse av pokerhender (logikk i `pokerService.js`).
 - En Express-server som eksponerer API-endepunkter (kontrollert via `pokerController.js`).
 - Lagres og hentes data via en Sequelize-modell definert i `db/db.js` og brukt i `handModel.js`.
@@ -97,6 +97,32 @@ For å starte med Docker Compose, kjør:
 docker-compose up --build
 ```
 Dette vil hente alle nødvendige bilder, bygge applikasjonen, og starte både API og database.
+
+## Testing med Postman
+
+Du kan bruke Postman for å teste API-endepunktene. Her er noen eksempler:
+
+- **Hente tidligere hender:**  
+  Send en GET-forespørsel til:  
+  [http://localhost:3000/api/poker/previous-hands](http://localhost:3000/api/poker/previous-hands)
+
+- **Generere en ny hånd:**  
+  Send en POST-forespørsel til:  
+  [http://localhost:3000/api/poker/generate-hand](http://localhost:3000/api/poker/generate-hand)  
+  Denne ruten genererer en hånd uten å sende med en playerId (dvs. bruker "unknown" som testspiller).
+
+- **Sammenligne hender:**  
+  Send en POST-forespørsel til:  
+  [http://localhost:3000/api/poker/compare-hands](http://localhost:3000/api/poker/compare-hands)  
+  Eksempel på JSON-payload (kan enten spesifisere playerId for hver hånd eller sammenligne arbitære hender):
+  
+  ```json eksemple for testing.
+  {
+    "hands": [
+      ["2k", "3k", "4s", "6h", "7r"],
+      ["2r", "2k", "2s", "2h", "7r"]
+    ]
+  }
 
 ## API Endepunkter  
 Prosjektets API-endepunkter inkluderer:
